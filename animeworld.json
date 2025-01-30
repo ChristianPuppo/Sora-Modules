@@ -1,0 +1,11 @@
+{
+    "sourceName": "AnimeWorld",
+    "author": "Chruis",
+    "iconUrl": "https://raw.githubusercontent.com/ChristianPuppo/Sora-Modules/refs/heads/main/animeworld/icon.png",
+    "version": "1.0.0",
+    "language": "Italiano",
+    "baseUrl": "https://www.animeworld.so/",
+    "searchBaseUrl": "https://www.animeworld.so/search?keyword=%s",
+    "scriptUrl": "https://raw.githubusercontent.com/ChristianPuppo/Sora-Modules/refs/heads/main/animeworld.js",
+    "asyncJS": true
+}
