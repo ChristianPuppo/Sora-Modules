@@ -54,7 +54,7 @@ async function extractEpisodes(animeUrl) {
 
     await browser.close();
     return episodes;
-}
+
 
 async function extractStreamUrl(episodeUrl) {
     const browser = await puppeteer.launch({ headless: true });
