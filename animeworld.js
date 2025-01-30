@@ -6,7 +6,7 @@ class AnimeWorldScraper {
         this.baseUrl = 'https://www.animeworld.so';
         this.minDelay = 2000;
         this.maxDelay = 5000;
-        this.debug = true; // Abilita il logging dettagliato
+        this.debug = true;
     }
 
     log(message, data = null) {
@@ -68,7 +68,6 @@ class AnimeWorldScraper {
             const results = [];
             let processedItems = 0;
 
-            // Regex più robusti con gestione degli spazi e caratteri speciali
             const titleRegex = /<h3>\s*<a[^>]*class="name"[^>]*>([^<]+)<\/a>\s*<\/h3>/gi;
             const imageRegex = /<a[^>]*class="poster"[^>]*>\s*<img[^>]*src="([^"]+)"[^>]*>/gi;
             const linkRegex = /<a[^>]*class="poster"[^>]*href="([^"]+)"[^>]*>/gi;
@@ -186,11 +185,12 @@ class AnimeWorldScraper {
     }
 }
 
-// Funzioni esportate con gestione degli errori migliorata
-export async function searchResults(keyword) {
+// Funzioni wrapper in formato CommonJS
+const scraper = new AnimeWorldScraper();
+
+async function searchResults(keyword) {
     console.log(`[General] Searching for: ${keyword}`);
     try {
-        const scraper = new AnimeWorldScraper();
         const results = await scraper.searchAnime(keyword);
         if (!results || results.length === 0) {
             console.log('[Warning] No results found');
@@ -199,14 +199,13 @@ export async function searchResults(keyword) {
         return JSON.stringify(results);
     } catch (error) {
         console.error('[Error]', error);
-        throw error; // Rilancia l'errore per gestirlo a livello superiore
+        throw error;
     }
 }
 
-export async function extractDetails(url) {
+async function extractDetails(url) {
     console.log(`[General] Extracting details from: ${url}`);
     try {
-        const scraper = new AnimeWorldScraper();
         const details = await scraper.getAnimeDetails(url);
         if (!details) {
             console.log('[Warning] No details found');
@@ -219,10 +218,9 @@ export async function extractDetails(url) {
     }
 }
 
-export async function extractEpisodes(url) {
+async function extractEpisodes(url) {
     console.log(`[General] Extracting episodes from: ${url}`);
     try {
-        const scraper = new AnimeWorldScraper();
         const episodes = await scraper.getEpisodesList(url);
         if (!episodes || episodes.length === 0) {
             console.log('[Warning] No episodes found');
@@ -235,10 +233,9 @@ export async function extractEpisodes(url) {
     }
 }
 
-export async function extractStreamUrl(url) {
+async function extractStreamUrl(url) {
     console.log(`[General] Extracting stream URL from: ${url}`);
     try {
-        const scraper = new AnimeWorldScraper();
         const streamUrl = await scraper.getStreamUrl(url);
         if (!streamUrl) {
             console.log('[Warning] No stream URL found');
@@ -250,3 +247,11 @@ export async function extractStreamUrl(url) {
         throw error;
     }
 }
+
+// Esporta le funzioni in formato CommonJS
+module.exports = {
+    searchResults,
+    extractDetails,
+    extractEpisodes,
+    extractStreamUrl
+};
